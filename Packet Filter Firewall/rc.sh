@@ -86,5 +86,8 @@ $IPTABLES -A FORWARD -s 10.0.2.10 -d 8.8.8.8 -p icmp -j ACCEPT
 $IPTABLES -A INPUT -p tcp -j ACCEPT
 $IPTABLES -A OUTPUT -p tcp -j ACCEPT
 
+#Hemendu Roy: forwarding traffic between internal and public networks
+$IPTABLES -A FORWARD -i enp0s3 -o enp0s8 -j ACCEPT
+$IPTABLES -A FORWARD -i enp0s8 -o enp0s3 -m state --state ESTABLISHED,RELATED -j ACCEPT
 #Hemendu Roy: enabling postrouting
 $IPTABLES -t nat -A POSTROUTING -o enp0s8 -j MASQUERADE
